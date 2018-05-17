@@ -7,17 +7,34 @@
 //
 
 import UIKit
+import UnsplashImageView
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        UnsplashConfig.default.query = .random(featured: false)
+        UnsplashConfig.default.size = CGSize(width: 1000, height: 1000)
+        UnsplashConfig.default.terms = ["fruit", "vegan"]
+        UnsplashConfig.default.mode = .gallery(interval: 10.0, transition: .fade(0.5))
+        
+        let imageView: UIImageView = {
+            let imageView = UIImageView(frame: view.frame)
+            imageView.contentMode = .scaleAspectFill
+            return imageView
+        }()
+        
+        view.addSubview(imageView)
+        imageView.unsplash.setImage()
+        
+        imageView.unsplash.willTransition = { image, url in
+            print("Unsplash.WillTransition: \(url?.absoluteString ?? "")")
+        }
+        
+        imageView.unsplash.didTransition = { image, url in
+            print("Unsplash.DidTransition: \(url?.absoluteString ?? "")")
+        }
     }
 
 }

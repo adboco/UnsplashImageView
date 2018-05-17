@@ -1,0 +1,51 @@
+PODS:
+  - Alamofire (4.7.2)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - Nimble (7.0.3)
+  - Nimble-Snapshots (6.3.0):
+    - Nimble-Snapshots/Core (= 6.3.0)
+  - Nimble-Snapshots/Core (6.3.0):
+    - FBSnapshotTestCase (~> 2.0)
+    - Nimble (~> 7.0)
+  - Quick (1.2.0)
+  - Repeat (0.5.4)
+  - UnsplashImageView (0.1.0):
+    - Alamofire
+    - Repeat
+
+DEPENDENCIES:
+  - FBSnapshotTestCase (~> 2.1.4)
+  - Nimble (~> 7.0.2)
+  - Nimble-Snapshots (~> 6.3.0)
+  - Quick (~> 1.2.0)
+  - UnsplashImageView (from `../`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - FBSnapshotTestCase
+    - Nimble
+    - Nimble-Snapshots
+    - Quick
+    - Repeat
+
+EXTERNAL SOURCES:
+  UnsplashImageView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  Repeat: 6e9ea5147b87470c9ceb4b8b090e3be301dd3461
+  UnsplashImageView: 0f5078e9eaf2020a3b2765bd5981283511fe0bab
+
+PODFILE CHECKSUM: 20b3ac3b4ffb81acc7d64e064df6917e8d6c62e2
+
+COCOAPODS: 1.5.0

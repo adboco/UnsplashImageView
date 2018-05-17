@@ -9,34 +9,23 @@
 Pod::Spec.new do |s|
   s.name             = 'UnsplashImageView'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of UnsplashImageView.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.summary          = 'Easily embed Unsplash photos in UIImageView. Using Unsplash Source API.'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+UnsplashImageView allows to display Unsplash photos in UIImageView and make transitions between images. Using Unsplash Source API.
                        DESC
 
-  s.homepage         = 'https://github.com/adboco@telefonica.net/UnsplashImageView'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/adboco/UnsplashImageView'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'adboco@telefonica.net' => 'abouza@mobincube.com' }
-  s.source           = { :git => 'https://github.com/adboco@telefonica.net/UnsplashImageView.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { 'adboco@telefonica.net' => 'Adrián Bouza Correa' }
+  s.source           = { :git => 'https://github.com/adboco/UnsplashImageView.git', :tag => s.version.to_s }
+  s.social_media_url = 'https://instagram.com/adboco'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'UnsplashImageView/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'UnsplashImageView' => ['UnsplashImageView/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.frameworks = 'UIKit'
+  s.dependency 'Alamofire'
+  s.dependency 'Repeat'
 end
