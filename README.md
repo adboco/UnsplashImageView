@@ -5,11 +5,11 @@
 [![Platform](https://img.shields.io/cocoapods/p/UnsplashImageView.svg?style=flat)](https://cocoapods.org/pods/UnsplashImageView)
 [![Swift Version](https://img.shields.io/badge/swift-4.1-orange.svg)](https://cocoapods.org/pods/UnsplashImageView)
 
-## Example
+__UnsplashImageView__ allows to display _Unsplash_ photos in UIImageView and make transitions between images. It uses [Unsplash Source API](https://source.unsplash.com).
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-![alt text](https://github.com/adboco/UnsplashImageView/blob/master/Assets/unsplash_demo.gif "Demo")
+<p align="center">
+	<img src="https://github.com/adboco/UnsplashImageView/blob/master/Assets/unsplash_demo.gif" height="600px" />
+</p>
 
 ## Requirements
 
