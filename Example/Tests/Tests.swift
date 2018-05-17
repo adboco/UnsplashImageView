@@ -2,49 +2,35 @@
 
 import Quick
 import Nimble
-import UnsplashImageView
+@testable import UnsplashImageView
 
-class TableOfContentsSpec: QuickSpec {
+class UnsplashConfigSpec: QuickSpec {
+    
     override func spec() {
-        describe("these will fail") {
-
-            it("can do maths") {
-                expect(1) == 2
+        describe("unsplash config") {
+            var config = UnsplashConfig()
+            
+            it("can have gallery mode with single query") {
+                config.mode = .gallery(interval: 1.0, transition: .none)
+                config.query = .photo(id: "id")
+                
+                expect(config.mode.isSingle) == true
             }
 
-            it("can read") {
-                expect("number") == "string"
-            }
-
-            it("will eventually fail") {
-                expect("time").toEventually( equal("done") )
+            it("can have gallery mode with fixed update daily") {
+                config.mode = .gallery(interval: 1.0, transition: .none)
+                config.fixed = .daily
+                
+                expect(config.mode.isSingle) == true
             }
             
-            context("these will pass") {
-
-                it("can do maths") {
-                    expect(23) == 23
-                }
-
-                it("can read") {
-                    expect("🐮") == "🐮"
-                }
-
-                it("will eventually pass") {
-                    var time = "passing"
-
-                    DispatchQueue.main.async {
-                        time = "done"
-                    }
-
-                    waitUntil { done in
-                        Thread.sleep(forTimeInterval: 0.5)
-                        expect(time) == "done"
-
-                        done()
-                    }
-                }
+            it("can have gallery mode with fixed update weekly") {
+                config.mode = .gallery(interval: 1.0, transition: .none)
+                config.fixed = .daily
+                
+                expect(config.mode.isSingle) == true
             }
         }
     }
+    
 }

@@ -20,20 +20,27 @@ public enum UnsplashQuery {
     
     case photo(id: String)
     case random(featured: Bool)
-    case randomFromUser(id: String)
-    case randomFromUserLikes(userId: String)
+    case randomFromUser(username: String)
+    case randomFromUserLikes(username: String)
     case randomFromCollection(id: String)
     
-    func build() -> String {
+    internal var isSingle: Bool {
+        switch self {
+        case .photo(id: _): return true
+        default: return false
+        }
+    }
+    
+    internal func build() -> String {
         switch self {
         case .photo(id: let photoId):
             return unsplashBaseURL + "/" + photoId
         case .random(featured: let featured):
             return unsplashBaseURL + (featured ? "/featured" : "/random")
-        case .randomFromUser(id: let userId):
-            return unsplashBaseURL + "/user/" + userId
-        case .randomFromUserLikes(userId: let userId):
-            return unsplashBaseURL + "/user/" + userId + "/likes"
+        case .randomFromUser(username: let username):
+            return unsplashBaseURL + "/user/" + username
+        case .randomFromUserLikes(username: let username):
+            return unsplashBaseURL + "/user/" + username + "/likes"
         case .randomFromCollection(id: let collectionId):
             return unsplashBaseURL + "/collection/" + collectionId
         }
@@ -60,6 +67,13 @@ public enum UnsplashUpdateType {
             return "/daily"
         case .weekly:
             return "/weekly"
+        }
+    }
+    
+    internal var isSingle: Bool {
+        switch self {
+        case .none: return false
+        default: return true
         }
     }
     
@@ -94,19 +108,39 @@ public enum UnsplashMode {
     case single(transition: UnsplashTransition)
     case gallery(interval: TimeInterval, transition: UnsplashTransition)
     
+    internal var isSingle: Bool {
+        switch self {
+        case .single(transition: _): return true
+        default: return false
+        }
+    }
+    
+    internal var transition: UnsplashTransition {
+        switch self {
+        case .single(transition: let transition): return transition
+        case .gallery(interval: _, transition: let transition): return transition
+        }
+    }
+    
 }
 
 /// Unsplash configuration
 public struct UnsplashConfig {
     
+    public init() {}
+    
     /// Singleton for default configuration
     public static var `default`: UnsplashConfig = UnsplashConfig()
     
     /// Mode
-    public var mode: UnsplashMode = .single(transition: .none)
+    public var mode: UnsplashMode = .single(transition: .none) {
+        didSet { preventUnvalidConfig() }
+    }
     
     /// Query
-    public var query: UnsplashQuery = .random(featured: false)
+    public var query: UnsplashQuery = .random(featured: false) {
+        didSet { preventUnvalidConfig() }
+    }
     
     /// Desired size of images
     public var size: CGSize?
@@ -115,7 +149,19 @@ public struct UnsplashConfig {
     public var terms: [String]?
     
     /// Update behaviour
-    public var fixed: UnsplashUpdateType = .none
+    public var fixed: UnsplashUpdateType = .none {
+        didSet { preventUnvalidConfig() }
+    }
+    
+    internal mutating func preventUnvalidConfig() {
+        // Avoid unvalid configs. Example: gallery mode with daily photo or photo(id: String) query
+        switch (mode.isSingle, query.isSingle, fixed.isSingle){
+        case (false, true, _), (false, _, true):
+            mode = .single(transition: mode.transition)
+        default:
+            break
+        }
+    }
     
     internal func buildURL() -> URL? {
         var query = self.query.build()
