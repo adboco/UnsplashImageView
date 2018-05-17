@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Alamofire
 import Repeat
 
 public typealias UnsplashTransitionClosure = (UIImage?, URL?) -> Void
@@ -45,6 +44,8 @@ public extension UIImageView {
 
 extension UIImageView: UnsplashCompatible { }
 
+// MARK: Unsplash for UIImageView
+
 public extension Unsplash where Base: UIImageView {
     
     public var willTransition: UnsplashTransitionClosure? {
@@ -64,45 +65,49 @@ public extension Unsplash where Base: UIImageView {
     
     // MARK: - Start loading images with UnsplashConfig
     
-    public func setImage(with config: UnsplashConfig = UnsplashConfig.default) {
+    /// Start loading images from Unsplash
+    ///
+    /// - Parameter config: Unsplash configuration
+    public func start(with config: UnsplashConfig = UnsplashConfig.default) {
+        stop()
+        
+        let url = config.buildURL()
         switch config.mode {
-        case .single:
-            self.loadImage(with: config.buildURL())
+        case .single(transition: let transition):
+            UnsplashDownloader.downloadImage(with: url) { image in
+                self.transition(transition, to: image, url: url)
+            }
         case .gallery(interval: let interval, transition: let transition):
-            self.timer = Repeater.every(.seconds(interval), { timer in
-                timer.pause()
-                self.loadImage(with: config.buildURL(), transition: transition) {
-                    timer.start()
+            UnsplashDownloader.downloadImage(with: url) { image in
+                self.transition(transition, to: image, url: url)
+            }
+            
+            self.timer = Repeater(interval: .seconds(interval), mode: .infinite) { _ in
+                self.timer?.pause()
+                UnsplashDownloader.downloadImage(with: config.buildURL()) { image in
+                    self.transition(transition, to: image, url: url)
+                    self.timer?.start()
                 }
-            })
+            }
             self.timer?.start()
         }
     }
     
-    public func stopUpdates() {
+    /// Stop loading images
+    public func stop() {
         self.timer?.pause()
         self.timer = nil
     }
     
-    // MARK: - UIImage loading and transition
+    // MARK: - Transitions
     
-    internal func loadImage(with url: URL?, transition: UnsplashTransition = .none, _ completion: (() -> Void)? = nil) {
-        guard let url = url else {
-            completion?()
-            return
-        }
-        Alamofire.request(url).responseData { response in
-            guard let data = response.value else {
-                completion?()
-                return
-            }
-            let image = UIImage(data: data)
-            self.transition(transition, to: image, url: url)
-            completion?()
-        }
-    }
-    
-    internal func transition(_ type: UnsplashTransition, to image: UIImage?, url: URL) {
+    /// Makes transitions between images
+    ///
+    /// - Parameters:
+    ///   - type: Type of transition
+    ///   - image: Final image
+    ///   - url: Final image url
+    internal func transition(_ type: UnsplashTransition, to image: UIImage?, url: URL?) {
         willTransition?(image, url)
         
         let completionBlock: (Bool) -> Void = { finished in

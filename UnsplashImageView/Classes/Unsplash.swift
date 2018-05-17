@@ -91,7 +91,7 @@ public enum UnsplashTransition {
 /// Transition configuration
 public enum UnsplashMode {
     
-    case single
+    case single(transition: UnsplashTransition)
     case gallery(interval: TimeInterval, transition: UnsplashTransition)
     
 }
@@ -103,7 +103,7 @@ public struct UnsplashConfig {
     public static var `default`: UnsplashConfig = UnsplashConfig()
     
     /// Mode
-    public var mode: UnsplashMode = .single
+    public var mode: UnsplashMode = .single(transition: .none)
     
     /// Query
     public var query: UnsplashQuery = .random(featured: false)

@@ -21,7 +21,7 @@ UnsplashImageView allows to display Unsplash photos in UIImageView and make tran
   s.source           = { :git => 'https://github.com/adboco/UnsplashImageView.git', :tag => s.version.to_s }
   s.social_media_url = 'https://instagram.com/adboco'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '8.0'
 
   s.source_files = 'UnsplashImageView/Classes/**/*'
   
