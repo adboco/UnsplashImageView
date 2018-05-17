@@ -24,7 +24,8 @@ UnsplashImageView allows to display Unsplash photos in UIImageView and make tran
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'UnsplashImageView/Classes/**/*'
-  
+  s.swift_version = '4.1'
+
   s.frameworks = 'UIKit'
   s.dependency 'Alamofire'
   s.dependency 'Repeat'
