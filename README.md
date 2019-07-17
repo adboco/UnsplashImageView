@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/cocoapods/l/UnsplashImageView.svg?style=flat)](https://cocoapods.org/pods/UnsplashImageView)
 [![Platform](https://img.shields.io/cocoapods/p/UnsplashImageView.svg?style=flat)](https://cocoapods.org/pods/UnsplashImageView)
 [![Swift Version](https://img.shields.io/badge/swift-4.1-orange.svg)](https://cocoapods.org/pods/UnsplashImageView)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fadboco%2FUnsplashImageView.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fadboco%2FUnsplashImageView?ref=badge_shield)
 
 __UnsplashImageView__ allows to display _Unsplash_ photos in UIImageView and make transitions between images. It uses [Unsplash Source API](https://source.unsplash.com).
 
@@ -93,3 +94,6 @@ adboco@telefonica.net, Adrián Bouza Correa
 ## License
 
 UnsplashImageView is available under the MIT license. See the LICENSE file for more info.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fadboco%2FUnsplashImageView.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fadboco%2FUnsplashImageView?ref=badge_large)
